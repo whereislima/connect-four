@@ -13,15 +13,16 @@
   margin: 5px;
   width: 80%;
   height: 80%;
+  border-radius: 50%;
 }
 
 /* TODO: make pieces red/blue,  depending on player 1/2 piece */
 .p1 {
-  color: rgb(242, 96, 96);
+  background-color: rgb(242, 96, 96);
 }
 
 .p2 {
-  color: rgb(34, 34, 220);
+  background-color: rgb(34, 34, 220);
 }
 
 /* column-top is table row of clickable areas for each column */

@@ -73,13 +73,12 @@ function findSpotForCol(x) {
 
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
-  const div = document.createElement("div");
-  div.setAttribute("class", "piece");
+  const piece = document.createElement("div");
+  piece.classList.add("piece");
+  piece.classList.add(`p${currPlayer}`);
   
   const chip = document.getElementById(`${y}-${x}`);
-  chip.setAttribute("class", "p1");
-  chip.append(div);
-  return chip;
+  chip.append(piece);
 }
 
 /** endGame: announce game end */
@@ -93,7 +92,7 @@ function endGame(msg) {
 function handleClick(evt) {
   // get x from ID of clicked cell
   const x = +evt.target.id;
-  console.log(evt.target.id)
+ 
 
   // get next spot in column (if none, ignore click)
   const y = findSpotForCol(x);
@@ -103,6 +102,7 @@ function handleClick(evt) {
 
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
+  // board[y][x] = currPlayer;
   placeInTable(y, x);
 
   // check for win
@@ -112,9 +112,16 @@ function handleClick(evt) {
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
+ 
 
   // switch players
   // TODO: switch currPlayer 1 <-> 2
+  // if(currPlayer === 1) {
+  //   currPlayer = 2;
+  // } else if(currPlayer === 2) {
+  //   currPlayer = 1;
+  // }
+  currPlayer = currPlayer === 1 ? 2 : 1;
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
