@@ -19,8 +19,10 @@ let board = []; // array of rows, each row is array of cells  (board[y][x])
 
 function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
+  // push the amount of rows (arrays) into the larger array
   for(let y = 0; y < HEIGHT; y++) {
     board.push([])
+    // push null amount of columns as in width
     for(let x = 0; x < WIDTH; x++) {
       board[y].push(null)
     }
@@ -35,11 +37,13 @@ function makeHtmlBoard() {
   const htmlBoard = document.querySelector("#board");
   
   // TODO: add comment for this code
-  // creates a top row for clicking the game pieces 
+  // creates a top row for clicking the game pieces with id 
+  // adding event handler
   const top = document.createElement("tr");
   top.setAttribute("id", "column-top");
   top.addEventListener("click", handleClick);
-  // creating a cell for the top row
+  // creating td/cells for each column in the top row
+  // set id for each cell
   for (let x = 0; x < WIDTH; x++) {
     const headCell = document.createElement("td");
     headCell.setAttribute("id", x);
@@ -48,7 +52,7 @@ function makeHtmlBoard() {
   htmlBoard.append(top);
 
   // TODO: add comment for this code
-  // creating new rows and adding cells
+  // creating new rows and adding cells below the top row
   // setting an id for each cell
   // append cell to row
   for (let y = 0; y < HEIGHT; y++) {
@@ -66,8 +70,9 @@ function makeHtmlBoard() {
 
 function findSpotForCol(x) {
   // TODO: write the real version of this, rather than always returning 0
+  // iterating over each row to check if the cell is empty === null, if null then use that y location for new chip 
   for (let y = HEIGHT - 1; y >= 0; y--) {
-    if(!board[y][x]) {
+    if(board[y][x] === null) {
       return y;
     }
   }
@@ -81,7 +86,7 @@ function placeInTable(y, x) {
   const piece = document.createElement("div");
   piece.classList.add("piece");
   piece.classList.add(`p${currPlayer}`);
-  // piece.style.top = -50 * (y + 2); // dont understand this line at all
+  // get the id of cell/td
   const chip = document.getElementById(`${y}-${x}`);
   chip.append(piece);
 }
@@ -90,6 +95,7 @@ function placeInTable(y, x) {
 
 function endGame(msg) {
   // TODO: pop up alert message
+  alert(msg);
 }
 
 /** handleClick: handle click of column top to play piece */
@@ -107,7 +113,8 @@ function handleClick(evt) {
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
 
-  board[y][x] = currPlayer; // don't understand function for this besides checkForWin to see who is currPlayer
+  // cell location assigned to player 1 or 2, so then its not null anymore and place chip in that location
+  board[y][x] = currPlayer; 
   placeInTable(y, x);
 
   // check for win
@@ -117,8 +124,21 @@ function handleClick(evt) {
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
+  
+  // iterate over entire board
+  for(let i = 0; i < board.length; i++) {
+    // iterate over each array/row
+    for(let j = 0; j < board[i].length; j++) {
+      console.log(board[i][j]);
+      if (board[i][j] !== null) {
+      }
+    }
+    return endGame("Tie!");
+  }
+  // if (board.every(row => row.every(cell => cell))) {
+  //   return endGame('Tie!');
+  // }
  
-
   // switch players
   // TODO: switch currPlayer 1 <-> 2
   // if(currPlayer === 1) {
