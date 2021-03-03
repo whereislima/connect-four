@@ -126,14 +126,20 @@ function handleClick(evt) {
   // TODO: check if all cells in board are filled; if so call, call endGame
   
   // iterate over entire board
+  let tieGame = true;
+
   for(let i = 0; i < board.length; i++) {
     // iterate over each array/row
     for(let j = 0; j < board[i].length; j++) {
       console.log(board[i][j]);
-      if (board[i][j] !== null) {
+      if (board[i][j] === null) {
+        tieGame = false;
       }
     }
-    return endGame("Tie!");
+  }
+
+  if(tieGame === true) {
+    endGame("Tie!")
   }
   // if (board.every(row => row.every(cell => cell))) {
   //   return endGame('Tie!');
