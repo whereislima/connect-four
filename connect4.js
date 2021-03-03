@@ -66,7 +66,12 @@ function makeHtmlBoard() {
 
 function findSpotForCol(x) {
   // TODO: write the real version of this, rather than always returning 0
-  return 0;
+  for (let y = HEIGHT - 1; y >= 0; y--) {
+    if(!board[y][x]) {
+      return y;
+    }
+  }
+  return null;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
@@ -76,7 +81,7 @@ function placeInTable(y, x) {
   const piece = document.createElement("div");
   piece.classList.add("piece");
   piece.classList.add(`p${currPlayer}`);
-  
+  // piece.style.top = -50 * (y + 2); // dont understand this line at all
   const chip = document.getElementById(`${y}-${x}`);
   chip.append(piece);
 }
@@ -92,7 +97,6 @@ function endGame(msg) {
 function handleClick(evt) {
   // get x from ID of clicked cell
   const x = +evt.target.id;
- 
 
   // get next spot in column (if none, ignore click)
   const y = findSpotForCol(x);
@@ -102,7 +106,8 @@ function handleClick(evt) {
 
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
-  // board[y][x] = currPlayer;
+
+  board[y][x] = currPlayer; // don't understand function for this besides checkForWin to see who is currPlayer
   placeInTable(y, x);
 
   // check for win
