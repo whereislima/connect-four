@@ -22,7 +22,7 @@ function makeBoard() {
   for(let y = 0; y < HEIGHT; y++) {
     board.push([])
     for(let x = 0; x < WIDTH; x++) {
-      board[y].push(x)
+      board[y].push(null)
     }
   }
   return board;
